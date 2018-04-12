@@ -1,0 +1,24 @@
+{
+  "name": "controller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "start": "node dist/bundle.js",
+    "build": "NODE_ENV=production tsc && npm run bundle",
+    "bundle": "NODE_ENV=production webpack --optimize-minimize && find dist/ -type f ! -name 'bundle.js' -delete && find dist/ -type d -empty -delete"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "webpack": "*",
+    "webpack-cli": "*",
+    "@types/express": "*",
+    "@types/node": "*",
+    "typescript": "*"
+  }
+}
