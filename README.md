@@ -106,6 +106,8 @@ All images needs to be built from the corresponding dockerfile. Just use the add
 #### demo
 - contains all components to show how the application is supposed to work
 
+- URL: [http://localhost:8080/](http://localhost:8080/)
+
 - login credentials: 
     - Username: yamot
     - Password: test123
