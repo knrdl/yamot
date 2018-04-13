@@ -1,0 +1,20 @@
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        <h6 class="card-title">
+            <i class="fas fa-dot-circle"></i> Select Interface
+        </h6>
+        <ul class="list-group">
+            <ng-container *ngFor="let iface of ifaces">
+                <li class="list-group-item" [ngClass]="{'active': currentIface === iface}" (click)="choice(iface)">
+                    <span>
+                        <i class="fas fa-circle"></i>
+                    </span>
+                    {{iface}}
+                    <span class="float-right">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </span>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>

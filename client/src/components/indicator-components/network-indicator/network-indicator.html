@@ -1,0 +1,66 @@
+<network-dialog [(show)]="showDialog" [addr]="addr" [ifaces]="ifaces" [io]="io"></network-dialog>
+
+<div class="row">
+    <div class="col font-weight-bold">
+        <i class="fas fa-arrow-down"></i>
+        <i class="fas fa-arrow-up"></i>
+        Network
+    </div>
+    <div class="col text-right">
+        <button type="button" class="btn btn-primary btn-sm text-uppercase font-weight-bold" (click)="showDialog = true">
+            <i class="fas fa-external-link-square-alt"></i>
+        </button>
+    </div>
+</div>
+
+<ng-container *ngFor="let iface of ifaces">
+    <ng-container *ngIf="iface !== 'lo'">
+
+        <div class="font-weight-bold">{{iface}}</div>
+        <ng-container *ngFor="let bind of addr[iface]">
+            <div class="row" *ngIf="bind.ip && !netService.isLocalIp(bind.ip, bind.addr.replace('%'+iface, '')) && !bind.addr.startsWith('fe80::')">
+                <div class="col text-nowrap">
+                    <span [attr.title]="bind.addr">
+                        <i class="fas fa-circle"></i>
+                        <tab-link [href]="netService.formatAddr(bind.ip, bind.addr.replace('%'+iface, ''), true)">
+                            {{bind.addr.replace('%'+iface, '') | firstwords:25:':'}}
+                        </tab-link>
+                    </span>
+                </div>
+                <div class="col text-right" *ngIf="bind.ip">
+                    <span class="badge badge-secondary small">IPv{{bind.ip}}</span>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="ioDiff[iface] && ioDiff[iface].byte">
+            <div class="row" *ngFor="let dir of ['rx', 'tx']">
+                <div class="col text-nowrap">
+                    <span *ngIf="dir === 'rx'">
+                        <i class="fas fa-arrow-circle-down"></i>
+                    </span>
+                    <span *ngIf="dir === 'tx'">
+                        <i class="fas fa-arrow-circle-up"></i>
+                    </span>
+                    <ng-container *ngIf="ioDiff[iface].byte[dir]; else noTraffic">
+                        <span title="Current Speed">{{ioDiff[iface].byte[dir] | speedify}}</span>
+                    </ng-container>
+                    <ng-template #noTraffic>
+                        <span class="text-capitalize">
+                            No {{dir}} traffic
+                        </span>
+                    </ng-template>
+                </div>
+                <div class="col text-right" *ngIf="ioDiff[iface].pkt[dir]>0">
+                    <span title="Number of transfer network packages">
+                        <i class="fas fa-box-open"></i>
+                        {{ioDiff[iface].pkt[dir]}}
+                    </span>
+                </div>
+                <div class="col text-right text-nowrap">
+                    <span title="Total number of transfer bytes">{{io[iface].byte[dir] | sizify}} &sum;</span>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+
+</ng-container>

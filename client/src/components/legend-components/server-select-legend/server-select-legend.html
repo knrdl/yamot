@@ -1,0 +1,25 @@
+<ng-container *ngIf="server.length > 0">
+    <div class="card bg-light mb-3">
+        <div class="card-body">
+            <h6 class="card-title">
+                <ng-content></ng-content>
+            </h6>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let s of server">
+                    <span [ngClass]="onlineStatusClasses(s)">
+                        <i class="fas fa-circle"></i>
+                    </span>
+                    {{s}}
+                    <ng-container [ngSwitch]="action">
+                        <button *ngSwitchCase="'add'" type="button" class="close hover-green" (click)="do(s)">
+                            <i class="fas fa-plus-square"></i>
+                        </button>
+                        <button *ngSwitchCase="'remove'" type="button" class="close hover-red" (click)="do(s)">
+                            <i class="fas fa-minus-square"></i>
+                        </button>
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-container>

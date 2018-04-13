@@ -1,0 +1,8 @@
+@import "~chartist/dist/scss/settings/_chartist-settings.scss";
+
+// colors for legend dots
+@for $i from 0 to length($ct-series-names) {
+    .legend-color-#{$i} {
+      color: nth($ct-series-colors, $i + 1);
+    }
+}

@@ -1,0 +1,15 @@
+<header></header>
+
+<chart-type (selected)="chartType = $event"></chart-type>
+
+<expander [expanded]="chartType === 'bar'">
+    <chart-bar></chart-bar>
+</expander>
+
+<expander [expanded]="chartType === 'pie'">
+    <chart-pie></chart-pie>
+</expander>
+
+<expander [expanded]="chartType === 'line'">
+    <chart-line></chart-line>
+</expander>

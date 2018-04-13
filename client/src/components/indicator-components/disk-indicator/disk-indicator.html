@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col font-weight-bold">
+        <i class="fas fa-hdd"></i> Disks IO
+    </div>
+    <div class="col text-right font-weight-bold">
+        <span title="Write">
+            Read
+            <i class="fas fa-arrow-circle-up"></i>
+        </span>
+    </div>
+    <div class="col text-right font-weight-bold">
+        <span title="Read">
+            Write
+            <i class="fas fa-arrow-circle-down"></i>
+        </span>
+    </div>
+</div>
+
+<div class="row" *ngIf="disk.read_bytes>0 || disk.write_bytes>0">
+    <div class="col">
+        Bytes
+    </div>
+    <div class="col text-right">
+        <span title="Bytes read off disks">
+            {{(disk.read_bytes || 0) | sizify}}
+        </span>
+    </div>
+    <div class="col text-right">
+        <span title="Bytes wrote to disks">
+            {{(disk.write_bytes || 0) | sizify}}
+        </span>
+    </div>
+</div>
+
+<div class="row" *ngIf="disk.read_count>0 || disk.write_count>0">
+    <div class="col">
+        Count
+    </div>
+    <div class="col text-right">
+        <span title="Disks read counter">
+            {{(disk.read_count || 0) | number}}x
+        </span>
+    </div>
+    <div class="col text-right">
+        <span title="Disks write counter">
+            {{(disk.write_count || 0) | number}}x
+        </span>
+    </div>
+</div>
+
+<div class="row" *ngIf="disk.read_time>0 || disk.write_time>0">
+    <div class="col">
+        Time
+    </div>
+    <div class="col text-right">
+        <span title="Disks read time">
+            {{((disk.read_time || 0) / 1000) | timify:false}}
+        </span>
+    </div>
+    <div class="col text-right">
+        <span title="Disks write time">
+            {{((disk.write_time || 0) / 1000) | timify:false}}
+        </span>
+    </div>
+</div>

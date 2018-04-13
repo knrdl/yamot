@@ -1,0 +1,32 @@
+<div class="center-box">
+    <div class="jumbotron">
+        <div class="container">
+            <div class="alert alert-danger" role="alert" *ngIf="loginStatus == 'FAILED'">
+                <i class="fas fa-exclamation-circle"></i>
+                <strong>Login failed</strong>, please check your input!
+            </div>
+            <h1 class="display-2 name">
+                yamot
+            </h1>
+            <p class="lead name">
+                Yet Another MOnitoring Tool
+            </p>
+            <form [formGroup]="loginForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="username" placeholder="Username" id="loginUsername">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.valid || loginStatus == 'PROCESSING'">
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Log In
+                </button>
+            </form>
+            <div class="text-center mt-4">
+                <div *ngIf="loginStatus == 'PROCESSING'">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

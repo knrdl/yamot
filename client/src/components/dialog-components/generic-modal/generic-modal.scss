@@ -1,0 +1,5 @@
+div.modal-backdrop{
+    color: initial; //workaround to keep original
+    background: rgba(0,0,0,.7);
+    z-index: 1000100;
+}

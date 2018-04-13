@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col font-weight-bold">
+        <i class="fas fa-users"></i> User Logins</div>
+    <div class="col text-right">
+        <span class="badge badge-secondary small">
+            {{users.length}}x
+        </span>
+    </div>
+</div>
+<ng-container *ngFor="let user of users">
+    <div class="row">
+        <div class="col">
+            <span title="Username" *ngIf="user.name">
+                <i class="fas fa-user"></i> {{user.name}}
+            </span>
+        </div>
+        <div class="col text-right">
+            <span title="Login Terminal" *ngIf="user.term">
+                {{user.term}}
+                <i class="fas fa-terminal"></i>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-nowrap">
+            <span title="Login Application" *ngIf="user.app">
+                <i class="fas fa-code"></i>
+                <tab-link [href]="'https://www.die.net/search/?q=' + user.app">{{user.app}}</tab-link>
+            </span>
+        </div>
+        <div class="col text-right">
+            <span title="Login Host" *ngIf="user.host">
+                {{user.host}}
+                <i class="fas fa-desktop"></i>
+            </span>
+        </div>
+    </div>
+    <span title="Login Date" *ngIf="user.login">
+        Since {{user.login *1000 | date:'short'}}
+    </span>
+</ng-container>

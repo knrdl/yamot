@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col font-weight-bold">
+        <i class="fas fa-cloud"></i> Services</div>
+    <div class="col text-right">
+        <span class="badge badge-secondary small">
+            {{services.length}}x
+        </span>
+    </div>
+</div>
+
+<div class="row" *ngFor="let service of services">
+    <div class="col text-nowrap ml-1">
+        <ng-container *ngIf="netService.isLocalIp(service.ip, service.addr); then serviceLocal; else serviceExposed">
+        </ng-container>
+
+        <ng-template #serviceExposed>
+            <span title="Service is exposed to network">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </span>
+            <tab-link [href]="netService.formatDevUrl(hostname, service.port)">
+                {{netService.formatAddr(service.ip, service.addr)}}:
+                <span class="font-weight-bold">{{service.port}}</span>
+            </tab-link>
+        </ng-template>
+
+        <ng-template #serviceLocal>
+            <span title="Service is local available only">
+                <i class="fas fa-cloud"></i>
+            </span>
+            {{netService.formatAddr(service.ip, service.addr)}}:
+            <span class="font-weight-bold">{{service.port}}</span>
+        </ng-template>
+
+    </div>
+    <div class="col text-right" *ngIf="service.app; else guessPort">{{service.app}}</div>
+    <ng-template #guessPort>
+        <div class="col text-right text-muted" title="Guessed service, maybe it's wrong">
+            {{guessport(service.port)}}
+        </div>
+    </ng-template>
+</div>

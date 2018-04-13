@@ -1,0 +1,8 @@
+<div class="progress" *ngIf="(user + sys) > 0">
+    <div class="progress-bar" role="progressbar" [style.width]="user+'%'" *ngIf="user>0">
+        <span class="ml-1">user</span>
+    </div>
+    <div class="progress-bar" role="progressbar" [style.width]="sys+'%'" *ngIf="sys>0">
+        <span class="ml-1">sys</span>
+    </div>
+</div>

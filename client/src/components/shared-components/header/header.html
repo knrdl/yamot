@@ -1,0 +1,24 @@
+<nav class="navbar navbar-dark bg-dark flex-column py-2 px-1">
+    <button class="btn btn-sm btn-link py-2" type="button" (click)="toggle()" [attr.title]="pageTitle" *ngIf="dataService.server?.length>0">
+        <i class="fas fa-2x" [ngClass]="{'fa-chart-area': router.url === '/board', 'fa-columns': router.url === '/charts'}"></i>
+    </button>
+    <button class="btn btn-sm btn-link py-2" type="button" (click)="showServerDialog = true" title="Server Settings" *ngIf="router.url === '/board'">
+        <i class="fas fa-server fa-2x"></i>
+    </button>
+    <button class="btn btn-sm btn-link py-2" type="button" (click)="showSettingsDialog = true" title="Settings" *ngIf="router.url === '/board'">
+        <i class="fas fa-cogs fa-2x"></i>
+    </button>
+    <button class="btn btn-sm btn-link py-2" type="button" (click)="showAuthDialog = true" title="Change Credentials">
+        <i class="fas fa-user fa-2x"></i>
+    </button>
+    <button class="btn btn-sm btn-link py-2" type="button" (click)="logout()" title="Logout">
+        <i class="fas fa-sign-out-alt fa-2x"></i>
+    </button>
+    <button class="btn btn-sm btn-link py-2" type="button" (click)="showAllServer()" title="Show all server" *ngIf="hiddenServer && router.url === '/board'">
+        <i class="fas fa-eye fa-2x"></i>
+    </button>
+</nav>
+
+<server-dialog [(show)]="showServerDialog"></server-dialog>
+<settings-dialog [(show)]="showSettingsDialog"></settings-dialog>
+<auth-dialog [(show)]="showAuthDialog"></auth-dialog>

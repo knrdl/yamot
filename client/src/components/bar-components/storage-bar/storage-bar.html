@@ -1,0 +1,8 @@
+<div class="progress">
+    <div class="progress-bar deviation" role="progressbar" aria-valuemin="0" aria-valuemax="100" *ngIf="deviation>0"
+        [style.width]="deviation | percent" title="Deviation of free and used space" [ngClass]="{'bg-danger': proportion>=0.75 && usage.total>0}"></div>
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngClass]="{'bg-danger': proportion>=0.75 && usage.total>0}"
+        [style.width]="proportion | percent">
+        <span class="ml-1">{{(usage.used | sizify) + ' / ' + (usage.total | sizify)}}</span>
+    </div>
+</div>

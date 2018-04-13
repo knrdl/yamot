@@ -1,0 +1,39 @@
+<modal large="true" *ngIf="show">
+    <modal-header title="Storage Partitions" (close)="close()"></modal-header>
+    <div class="modal-body">
+        <div>
+            <ng-container *ngFor="let partition of store; let i = index">
+                <div class="row">
+                    <div class="col-5">
+                        <span title="Mountpoint">
+                            <i class="fas fa-caret-square-right"></i> {{partition.mountpoint}}</span>
+                    </div>
+                    <div class="col-5">
+                        <span title="Device-Type">
+                            <i class="fas fa-hdd"></i> {{partition.device}}</span>
+                        <span class="small" *ngIf="partition.device !== partition.fstype" title="Filesystem-Type">{{partition.fstype}}</span>
+                    </div>
+                    <div class="col-2 text-right" *ngIf="partition.usage">
+                        {{partition.usage.free | sizify}} free
+                    </div>
+                </div>
+                <div class="row" *ngIf="partition.usage">
+                    <div class="col">
+                        <storage-bar [usage]="partition.usage"></storage-bar>
+                    </div>
+                </div>
+                <div class="row" *ngIf="partition.opts">
+                    <div class="col">
+                        <span *ngFor="let opt of partition.opts.split(',')" class="mr-2" title="Mount Options">{{opt}}</span>
+                    </div>
+                </div>
+                <hr *ngIf="i+1 < store.length">
+            </ng-container>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+            <i class="fas fa-times-circle"></i> Close
+        </button>
+    </div>
+</modal>

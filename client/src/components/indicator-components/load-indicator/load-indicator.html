@@ -1,0 +1,42 @@
+<ng-container *ngIf="load && load.length == 3">
+    <ng-container *ngFor="let i of [0,1,2]">
+        <div class="row">
+            <div class="col">
+                &oslash; Load
+                <small>{{[1,5,15][i]}}min</small>
+            </div>
+            <div class="col text-right" title="Load per core" [appAlert]="{danger: (load[i] / cpucores > 2) || (load[i] / cpucores < 0.1), warning: (load[i] / cpucores < 0.2) || (load[i] / cpucores > 1.3)}">
+                {{(load[i] / cpucores) | number : '1.1-1' }}x
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <bar [usage]="load[i] / cpucores" [text]="load[i] | number:'1.2-2'"></bar>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-container *ngIf="mem.ram && mem.ram.total>0">
+    <div class="row">
+        <div class="col">
+            <i class="fas fa-cubes"></i> RAM
+        </div>
+        <div class="col text-right" [appAlert]="{warning: mem.ram.used / mem.ram.total > 0.75, danger: mem.ram.used / mem.ram.total > 0.85}">
+            {{(mem.ram.used / mem.ram.total) | percent}}
+        </div>
+    </div>
+    <bar [usage]="mem.ram.used / mem.ram.total" [text]="(mem.ram.used | sizify) + ' / ' + (mem.ram.total | sizify)"></bar>
+</ng-container>
+
+<ng-container *ngIf="mem.swap && mem.swap.total>0">
+    <div class="row">
+        <div class="col">
+            <i class="fas fa-cube"></i> Swap
+        </div>
+        <div class="col text-right" [appAlert]="{warning: mem.swap.used / mem.swap.total > 0.8, danger: mem.swap.used / mem.swap.total >= 0.9}">
+            {{(mem.swap.used / mem.swap.total) | percent}}
+        </div>
+    </div>
+    <bar [usage]="mem.swap.used / mem.swap.total" [text]="(mem.swap.used | sizify) + ' / ' + (mem.swap.total | sizify)"></bar>
+</ng-container>

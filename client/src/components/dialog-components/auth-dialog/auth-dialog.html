@@ -1,0 +1,78 @@
+<modal *ngIf="show">
+    <form (ngSubmit)="save()" [formGroup]="credForm">
+        <modal-header title="Change Login Credentials" (close)="close()"></modal-header>
+        <div class="modal-body">
+
+            <div class="alert alert-danger" role="alert" [hidden]="!credForm?.errors?.newPwNotEquivalent">
+                <i class="fas fa-exclamation-circle"></i> New Password mismatch
+            </div>
+
+            <div class="alert alert-danger" role="alert" [hidden]="!credForm?.controls?.newUsername?.errors?.colon==true">
+                <i class="fas fa-exclamation-circle"></i> Colon not allowed in Username
+            </div>
+
+            <fieldset>
+                <label>Current Credentials</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Current Username" formControlName="oldUsername">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Current Password" formControlName="oldPassword">
+                </div>
+            </fieldset>
+
+            <div class="dropdown-divider"></div>
+
+            <fieldset>
+                <label>New Credentials</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="New Username" formControlName="newUsername">
+                </div>
+
+                <small class="form-text text-muted">Minimum length of 6 characters</small>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="New Password" formControlName="newPassword1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Repeat New Password" formControlName="newPassword2">
+                </div>
+            </fieldset>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="close()">
+                <i class="fas fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="credForm.invalid">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </form>
+</modal>

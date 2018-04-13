@@ -1,0 +1,6 @@
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngClass]="{'bg-danger': proportion>=1}"
+        [style.width]="proportion | percent">
+        <span class="ml-1">{{text || '&nbsp;'}}</span>
+    </div>
+</div>

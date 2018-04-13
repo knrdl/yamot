@@ -1,0 +1,22 @@
+<div class="container my-3">
+    <div class="row">
+        <div class="col-lg-3">
+
+            <server-select-legend [server]="shownServer" action="remove" (click)="hideServer($event)">
+                <i class="fas fa-eye"></i> Shown Server
+            </server-select-legend>
+
+            <server-select-legend [server]="hiddenServer" action="add" (click)="showServer($event)">
+                <i class="fas fa-eye-slash"></i> Hidden Server
+            </server-select-legend>
+
+            <line-item-legend (changed)="updateVisibleValues($event)"></line-item-legend>
+
+        </div>
+        <div class="col-lg-9">
+            <div class="card bg-light">
+                <div class="card-body ct-bar-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>

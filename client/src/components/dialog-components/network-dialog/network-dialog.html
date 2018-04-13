@@ -1,0 +1,82 @@
+<modal large="true" *ngIf="show">
+    <modal-header title="Network Interfaces" (close)="close()"></modal-header>
+    <div class="modal-body">
+        <div class="card" *ngFor="let iface of ifaces; let i = index" [ngClass]="{'mt-3': i>0}">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{iface}}
+                    <span *ngIf="iface === 'lo'" class="float-right small text-muted">Loopback Device</span>
+                </h5>
+                <div class="card-text" *ngIf="io[iface]">
+                    <div class="row">
+                        <div class="col-4">
+                            <span title="Bytes received">
+                                <i class="fas fa-arrow-circle-down"></i> {{io[iface].byte.rx | sizify}} received
+                            </span>
+                        </div>
+                        <div class="col-8">
+                            <span title="Packets received">
+                                <i class="fas fa-box-open"></i> {{io[iface].pkt.rx | number}} Packets total
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <span title="Bytes transmitted">
+                                <i class="fas fa-arrow-circle-up"></i> {{io[iface].byte.tx | sizify}} transmitted
+                            </span>
+                        </div>
+                        <div class="col-8">
+                            <span title="Packets transmitted">
+                                <i class="fas fa-box-open"></i> {{io[iface].pkt.tx | number}} Packets total
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item ml-4" *ngFor="let bind of addr[iface]">
+                    <div class="row">
+                        <div class="col-4">
+                            Address
+                        </div>
+                        <div class="col-8">
+                            {{bind.addr}}
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="bind.ip">
+                        <div class="col-4">
+                            IP
+                        </div>
+                        <div class="col-8">
+                            IPv{{bind.ip}}
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="bind.broadcast">
+                        <div class="col-4">
+                            Broadcast
+                        </div>
+                        <div class="col-8">
+                            {{bind.broadcast}}
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="bind.netmask">
+                        <div class="col-4">
+                            Netmask
+                        </div>
+                        <div class="col-8">
+                            {{bind.netmask}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+            <i class="fas fa-times-circle"></i> Close
+        </button>
+    </div>
+</modal>

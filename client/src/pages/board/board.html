@@ -1,0 +1,20 @@
+<header></header>
+
+<div class="d-lg-flex justify-content-center" *ngIf="dataService.server.length>0; else noServer">
+    <board-server *ngFor="let s of dataService.server" [s]="s"></board-server>
+</div>
+
+<ng-template #noServer>
+    <div class="d-flex justify-content-center mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to yamot!</h1>
+            <p class="lead">Yet Another MOnitoring Tool</p>
+            <hr class="my-4">
+            <h3>
+                Click on the right hand
+                <i class="fas fa-server fa-2x"></i>
+                Server button to add your first device
+            </h3>
+        </div>
+    </div>
+</ng-template>

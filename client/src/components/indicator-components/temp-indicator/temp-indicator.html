@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col">
+        <i class="fas fa-thermometer-three-quarters"></i> Temperature
+    </div>
+    <div class="col text-right" [appAlert]="{warning: avgTemp > 60, danger: avgTemp > 75}">
+        &oslash; {{avgTemp | number:'1.0-0'}} °C
+    </div>
+</div>
+<div class="mt-1" *ngFor="let t of temp">
+    <temp-bar [temp]="t"></temp-bar>
+</div>

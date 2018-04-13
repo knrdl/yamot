@@ -1,0 +1,18 @@
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        <h6 class="card-title">
+            <i class="fas fa-align-justify"></i> Server Uptime
+        </h6>
+        <ul class="list-group">
+            <ng-container *ngFor="let svr of dataService.server">
+                <li class="list-group-item" *ngIf="svr.online === 'online'">
+                    <span class="text-success">
+                        <i class="fas fa-circle"></i>
+                    </span>
+                    {{svr.alias}}
+                    <div class="small">{{ svr?.data?.time?.up | timify }}</div>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>
