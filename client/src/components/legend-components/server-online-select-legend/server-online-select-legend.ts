@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core'
 import { DataService } from '../../../providers/data-service'
+import { Server } from '../../../model/Server';
 
 @Component({
     selector: 'server-online-select-legend',
@@ -22,5 +23,9 @@ export class ServerOnlineSelectLegend implements OnInit {
     private choice(svr: string): void {
         this.currentServer = svr
         this.selected.emit(svr)
+    }
+
+    private get isAnyServerOnline(): boolean {
+        return this.dataService.server.filter(svr => svr.online === 'online').length > 0
     }
 }

@@ -15,6 +15,9 @@
                     </span>
                 </li>
             </ng-container>
+            <li class="list-group-item bg-warning" *ngIf="!ifaces?.length">
+                No matching interfaces found
+            </li>
         </ul>
     </div>
 </div>

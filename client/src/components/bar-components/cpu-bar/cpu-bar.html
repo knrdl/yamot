@@ -1,8 +1,15 @@
-<div class="progress" *ngIf="(user + sys) > 0">
-    <div class="progress-bar" role="progressbar" [style.width]="user+'%'" *ngIf="user>0">
-        <span class="ml-1">user</span>
-    </div>
-    <div class="progress-bar" role="progressbar" [style.width]="sys+'%'" *ngIf="sys>0">
-        <span class="ml-1">sys</span>
-    </div>
+<div class="progress">
+    <ng-container *ngIf="(user + sys) > 0; else noCpuUsage">
+        <div class="progress-bar" role="progressbar" [style.width]="user+'%'" *ngIf="user>0">
+            <span class="ml-1">user</span>
+        </div>
+        <div class="progress-bar" role="progressbar" [style.width]="sys+'%'" *ngIf="sys>0">
+            <span class="ml-1">sys</span>
+        </div>
+    </ng-container>
+    <ng-template #noCpuUsage>
+        <div class="progress-bar no-width">
+            <span class="ml-1">Idle</span>
+        </div>
+    </ng-template>
 </div>

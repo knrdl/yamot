@@ -10,7 +10,7 @@
 
 <div class="row" *ngIf="cpu.names.length>0">
     <div class="col small">
-        <p *ngFor="let c of cpu.names">{{c[1]}}x {{c[0]}}</p>
+        <div *ngFor="let c of cpu.names">{{c[1]}}x {{c[0]}}</div>
     </div>
 </div>
 
