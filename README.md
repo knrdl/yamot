@@ -80,7 +80,7 @@ Before installing: Try it via docker, there are multiple docker images available
 #### Server
 1. Install python3 and psutil and ujson on every server with `sudo apt-get install python3-psutil python3-ujson`.
 If you are not running an apt-based system (Debian or Ubuntu) use `sudo pip3 install psutil` instead.
-2. Copy the file yamot_server.py to your server (e.g. under /opt/yamot) and add it to /etc/rc.local as `python3 /etc/yamot/yamot_server.py &` in front of the “exit 0”-line (enable autostart)
+2. Copy the file yamot_server.py to your server (e.g. under /opt/yamot) and add it to /etc/rc.local as `sudo -u ` **username** ` dash -c 'cd /opt/yamot && python3 /opt/yamot/yamot_server.py' &` in front of the “exit 0”-line (enable autostart)
 3. Run the server once interactively via `python3 yamot_server.py` to generate a config file (needs one-time write permission in the same folder).
 4. If you are running a firewall on your server (like ufw) open the specified port `sudo ufw allow 9393` (default port is 9393)
 
