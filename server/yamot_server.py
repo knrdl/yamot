@@ -202,19 +202,23 @@ def getTemp():
 	try:
 		for name, temps in psutil.sensors_temperatures(fahrenheit=False).items():
 			for t in temps:
-				temp.append(dict(name=t.label if t.label else name, cur=t.current, critical=t.critical))
+				temp.append(dict(name=t.label if t.label else name, cur=round(t.current, 2), critical=t.critical))
 	except:
 		pass
+
 	try:
-		for e in os.listdir('/sys/bus/w1/devices/'):
-			if re.search('^[\w-]+$', e) and os.path.isfile('/sys/bus/w1/devices/' + e + '/w1_slave'):
-				with open('/sys/bus/w1/devices/' + e + '/w1_slave') as f:
-					lines = f.read().splitlines()
-					if len(lines) > 1:
-						if ' YES' in lines[0]:
-							m = re.search('t=(-?\d+)', lines[1])
-							if m:
-								temp.append(dict(name='1 wire', cur=int(float(m.group(1)) / 1000), critical=None))
+		if os.path.isdir('/sys/devices/virtual/thermal/'):
+			for e in os.listdir('/sys/devices/virtual/thermal/'):
+				if e.startswith('thermal_zone'):
+					t = None
+					with open('/sys/devices/virtual/thermal/%s/type' % e) as f:
+						t = f.read().splitlines()[0]
+					if t and all(tmp['name'] != t for tmp in temp):
+						cur = None
+						with open('/sys/devices/virtual/thermal/%s/temp' % e) as f:
+							cur = round(float(f.read().splitlines()[0]) / 1000, 2)
+						if cur or cur == 0.0:
+							temp.append(dict(name=t, cur=cur, critical=None))
 	except:
 		pass
 	return temp
