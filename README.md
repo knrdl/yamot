@@ -23,6 +23,8 @@ It takes only a few steps of configuration and after that it displays much relev
 - Disk Device IO (bytes read/written)
 - Users logged in (name, login date, …)
 
+![Board-Page](screenshots/screenshot02.png)
+
 All this information is displayed in real-time on one page to give an uncomplicated overview.
 If you are looking for something big, feature-rich and scalable you are definitely wrong here. For a business solution have a look at [Nagios](https://www.nagios.org/) instead.
 
