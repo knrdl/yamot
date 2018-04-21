@@ -85,8 +85,8 @@ If you are not running an apt-based system (Debian or Ubuntu) use `sudo pip3 ins
 4. If you are running a firewall on your server (like ufw) open the specified port `sudo ufw allow 9393` (default port is 9393)
 
 #### Client & Controller
-5. The controller-component needs to be running on a server in your network (the same network where also the servers are running). The server which runs the controller can also run the server component at the same time.
-6. There you will need a node.js installation with express.js (or docker, if you use the prod image)
+5. The controller-component needs to be running on a server in your network (the same network where also the servers are running). The server which runs the controller can also run the server component at the same time. Use the content of the folder `controller/dist`.
+6. You will need a node.js installation with express.js (or docker, if you use the prod image)
 7. Use `node controller.js` to start the controller and check if it is working
 8. The login credentials will be provided by the controller on startup in the shell.
 9. Now you could also add it to the autostart of the system. Don’t forget to open the port if you are using a firewall.
