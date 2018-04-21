@@ -1,0 +1,10 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+$hover-colors: "red" "green" "blue";
+
+@each $color in $hover-colors {
+    .hover-#{$color}:hover, .hover-#{$color}:hover > * {
+        color: color($color);
+    }
+}

@@ -1,0 +1,92 @@
+<modal large="true" *ngIf="show">
+    <modal-header title="Server" (close)="close()"></modal-header>
+    <div class="modal-body">
+
+        <div class="alert alert-danger" role="alert" [hidden]="!illegalAddress">
+            <i class="fas fa-exclamation-circle"></i> &ldquo;{{illegalAddress}}&rdquo; is not a valid address
+        </div>
+
+        <div class="alert alert-danger" role="alert" [hidden]="!illegalAlias">
+            <i class="fas fa-exclamation-circle"></i> Alias name &ldquo;{{illegalAlias}}&rdquo; is invalid because it contains a Slash
+        </div>
+
+        <ng-container *ngIf="server.length>0">
+
+            <div class="alert alert-danger" role="alert" [hidden]="!serverForm?.errors?.duplicatedAlias">
+                <i class="fas fa-exclamation-circle"></i> Duplicated aliases are not allowed
+            </div>
+
+            <form [formGroup]="serverForm">
+                <fieldset>
+                    <label>Registered Servers</label>
+                    <div formArrayName="data">
+                        <div class="input-group mb-2" *ngFor="let s of server; let i = index" [formGroupName]="i">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{i+1}}</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Alias" [(ngModel)]="s.alias" formControlName="alias"> &nbsp;
+                            <input type="text" class="form-control" placeholder="Hostname | IP" [(ngModel)]="s.addr" formControlName="addr">
+                            <input type="number" class="form-control" placeholder="Port" [(ngModel)]="s.port" formControlName="port"> &nbsp;
+                            <input type="text" class="form-control" placeholder="Username" [(ngModel)]="s.user" formControlName="user">
+                            <input type="password" #pw class="form-control" placeholder="Password" [(ngModel)]="s.pw" formControlName="pw">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" (click)="pw.type = invertPassword(pw.type)" [disabled]="!s.pw">
+                                    <span *ngIf="!showPassword(pw.type)">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                    <span *ngIf="showPassword(pw.type)">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </span>
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-outline-secondary" type="button" (click)="removeServer(s, i)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <hr>
+        </ng-container>
+
+        <form (ngSubmit)="addServer()" [formGroup]="newServerForm">
+            <fieldset>
+                <label>Add a new Server</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Alias" [(ngModel)]="newServer.alias" formControlName="alias"> &nbsp;
+                    <input type="text" class="form-control" placeholder="Hostname / IP" [(ngModel)]="newServer.addr" formControlName="addr">
+                    <input type="number" class="form-control" placeholder="Port" [(ngModel)]="newServer.port" formControlName="port"> &nbsp;
+                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="newServer.user" formControlName="user">
+                    <input type="password" #newPw class="form-control" placeholder="Password" [(ngModel)]="newServer.pw" formControlName="pw">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" (click)="newPw.type = invertPassword(newPw.type)" [disabled]="!newServer.pw">
+                            <span *ngIf="!showPassword(newPw.type)">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                            <span *ngIf="showPassword(newPw.type)">
+                                <i class="fas fa-eye-slash"></i>
+                            </span>
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-outline-secondary" type="submit" [disabled]="newServerForm.invalid">
+                            <i class="fas fa-plus-square"></i>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+            <i class="fas fa-times-circle"></i> Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="serverForm.invalid">
+            <i class="fas fa-save"></i> Save
+        </button>
+    </div>
+</modal>

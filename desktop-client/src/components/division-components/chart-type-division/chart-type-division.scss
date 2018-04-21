@@ -1,0 +1,10 @@
+nav {
+    opacity: .7;
+    border-top-right-radius: .8rem;
+    border-bottom-right-radius: .8rem;
+    position: fixed;
+    top: 20%;
+    transform: translateY(-20%);
+    left: 0;
+    z-index: 1000000;
+}

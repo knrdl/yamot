@@ -1,0 +1,66 @@
+<modal *ngIf="show">
+    <form (ngSubmit)="save()" [formGroup]="settingsForm">
+        <modal-header title="Settings" (close)="close()"></modal-header>
+        <div class="modal-body container">
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Byte Sizes</label>
+                </div>
+                <select class="custom-select bg-light" formControlName="sizeFactor">
+                    <option [value]="1000">Decimal Prefixes: Factor 1000 (KB, MB, GB, ...)</option>
+                    <option [value]="1024">Binary Prefixes: Factor 1024 (KiB, MiB, GiB, ...)</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Net Sizes</label>
+                </div>
+                <select class="custom-select bg-light" formControlName="speedFactor">
+                    <option [value]="8">Bits (Kbit/s)</option>
+                    <option [value]="1">Bytes (KB/s)</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Updates</label>
+                </div>
+                <select class="custom-select bg-light" formControlName="windowUpdates">
+                    <option value="active">Only update when browser active (recommended)</option>
+                    <option value="always">Always update server-measurements</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Measurement-Updates Every</label>
+                </div>
+                <input type="number" class="form-control" min="1" step="1" formControlName="updateInterval">
+                <div class="input-group-append">
+                    <span class="input-group-text">sec</span>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Price per Kilowatt-Hour</label>
+                </div>
+                <input type="number" class="form-control" min="0" step="0.1" formControlName="kWhPrice">
+                <div class="input-group-append">
+                    <span class="input-group-text">cent</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="close()">
+                <i class="fas fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="settingsForm.invalid">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </form>
+</modal>

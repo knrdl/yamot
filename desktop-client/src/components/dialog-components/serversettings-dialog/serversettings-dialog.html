@@ -1,0 +1,109 @@
+<modal *ngIf="show">
+    <form (ngSubmit)="save()" [formGroup]="powerForm">
+        <modal-header title="About {{server.alias}}" (close)="close()"></modal-header>
+        <div class="modal-body">
+
+            <ng-container *ngIf="server?.data?.app">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-info-circle"></i> Yamot On {{server.alias}}</h6>
+                        <div class="card-text">
+                            <div class="input-group mb-2 w-100">
+                                <div class="input-group-prepend w-50">
+                                    <div class="input-group-text w-100">
+                                        <div class="text-right w-100">Running as User</div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append w-50">
+                                    <div class="input-group-text w-100">{{server.data.app.user}}</div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-2 w-100">
+                                <div class="input-group-prepend w-50">
+                                    <div class="input-group-text w-100">
+                                        <div class="text-right w-100">On Terminal</div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append w-50">
+                                    <span class="input-group-text w-100">{{server.data.app.term}}</span>
+                                </div>
+                            </div>
+                            <div class="input-group mb-2 w-100">
+                                <div class="input-group-prepend w-50">
+                                    <div class="input-group-text w-100">
+                                        <div class="text-right w-100">On Port</div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append w-50">
+                                    <span class="input-group-text w-100">{{server.data.app.port}}</span>
+                                </div>
+                            </div>
+                            <div class="input-group mb-2 w-100">
+                                <div class="input-group-prepend w-50">
+                                    <div class="input-group-text w-100">
+                                        <div class="text-right w-100">Memory Usage Of Yamot</div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append w-50">
+                                    <span class="input-group-text w-100">{{server.data.app.memp | number}}%</span>
+                                </div>
+                            </div>
+                            <div class="input-group mb-2 w-100">
+                                <div class="input-group-prepend w-50">
+                                    <div class="input-group-text w-100">
+                                        <div class="text-right w-100">Started At</div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append w-50">
+                                    <span class="input-group-text w-100">{{server.data.app.start *1000 | date:'short'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+            </ng-container>
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <i class="fas fa-cog"></i> Settings For {{server.alias}}</h6>
+                    <div class="card-text">
+                        <small class="form-text text-muted">E.g. 5V for USB</small>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Power Supply</label>
+                            </div>
+                            <input type="number" class="form-control" min="1" step="1" formControlName="powerSupply">
+                            <div class="input-group-append">
+                                <span class="input-group-text">Volts</span>
+                            </div>
+                        </div>
+
+                        <small class="form-text text-muted">E.g. max 1.2A for a Raspberry Pi 3</small>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">&oslash; Current Consumption</label>
+                            </div>
+                            <input type="number" class="form-control" min="0" step="0.01" formControlName="averageCurrent">
+                            <div class="input-group-append">
+                                <span class="input-group-text">Ampere</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="close()">
+                <i class="fas fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="powerForm.invalid">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </form>
+</modal>

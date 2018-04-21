@@ -1,0 +1,23 @@
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        <h6 class="card-title">
+            <i class="fas fa-dot-circle"></i> Select Server
+        </h6>
+        <ul class="list-group">
+            <ng-container *ngFor="let svr of dataService.server">
+                <li class="list-group-item" *ngIf="svr.online === 'online'" [ngClass]="{'active': currentServer === svr.alias}" (click)="choice(svr.alias)">
+                    <span class="text-success">
+                        <i class="fas fa-circle"></i>
+                    </span>
+                    {{svr.alias}}
+                    <span class="float-right">
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </span>
+                </li>
+            </ng-container>
+            <li class="list-group-item bg-warning" *ngIf="!isAnyServerOnline">
+                No matching servers found
+            </li>
+        </ul>
+    </div>
+</div>

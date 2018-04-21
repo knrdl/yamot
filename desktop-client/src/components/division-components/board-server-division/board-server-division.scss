@@ -1,0 +1,27 @@
+@import "~styles/variables.scss";
+@import "~styles/hover.scss";
+
+
+article {
+    $border-radius: .2rem;
+
+    margin: .5rem .33rem;
+    background: $color-board-bg;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    min-width: 10vw;
+
+     section:first-child {
+        background: $color-board-bg-header;
+        padding: .5rem;
+        font-size: large;
+        cursor: pointer;
+        user-select: none;
+    }
+    
+    section {
+        padding: .75rem;
+        color: $color-board-text;
+    }
+}
+

@@ -1,0 +1,10 @@
+<nav class="navbar navbar-dark bg-dark flex-column py-2 px-1">
+    <ng-container *ngFor="let t of ['bar', 'pie', 'line']">
+        <button class="btn btn-sm btn-link py-2" [ngClass]="{disabled: type === (t || 'bar')}" type="button" (click)="setType(t)">
+            <i class="fas fa-chart-{{t}} fa-2x"></i>
+        </button>
+        <span [ngClass]="{'text-secondary': type === (t || 'bar'), 'text-light': type !== (t || 'bar')}">
+            {{ {bar: 'Use', pie: 'Up', line: 'Net'}[t] }}
+        </span>
+    </ng-container>
+</nav>

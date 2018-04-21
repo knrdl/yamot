@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col">Node</div>
+    <div class="col text-right" *ngIf="sys.uname.node">
+        <tab-link [href]="'http://'+sys.uname.node">
+            {{sys.uname.node}}
+        </tab-link>
+    </div>
+</div>
+
+<div class="row" *ngIf="sys.uname.machine">
+    <div class="col">System</div>
+    <div class="col text-right">{{sys.uname.machine}}</div>
+</div>
+<div class="row" *ngIf="sys.uname.system || sys.uname.release">
+    <div class="col font-weight-bold text-nowrap ml-2">
+        {{sys.uname.system}} {{sys.uname.release}}
+    </div>
+    <div class="col text-right" [ngSwitch]="sys.uname.system">
+        <span *ngSwitchCase="'Linux'">
+            <tab-link href="https://kernel.org">
+                <i class="fab fa-linux"></i>
+            </tab-link>
+        </span>
+        <span *ngSwitchCase="'Darwin'">
+            <i class="fab fa-apple"></i>
+        </span>
+        <span *ngSwitchCase="'Windows_NT'">
+            <i class="fab fa-windows"></i>
+        </span>
+        <span *ngSwitchCase="'FreeBSD'">
+            <i class="fab fa-freebsd"></i>
+        </span>
+    </div>
+</div>
+<div class="row" *ngIf="sys.uname?.version">
+    <div class="col small ml-2" [attr.title]="sys.uname.version">{{sys.uname.version | firstwords:45}}</div>
+</div>
+
+<ng-container *ngIf="sys.dist">
+    <div class="row">
+        <div class="col">Distribution</div>
+    </div>
+    <div class="row">
+        <div class="col font-weight-bold ml-2">{{sys.dist}}</div>
+    </div>
+</ng-container>
+
+<div class="row" *ngIf="sys.libc">
+    <div class="col">GLib</div>
+    <div class="col text-right">{{sys.libc}}</div>
+</div>
+
+<div class="row" *ngIf="sys.python">
+    <div class="col">
+        Python</div>
+    <div class="col text-right">
+        <tab-link href="https://www.python.org/doc/versions/">
+            <i class="fab fa-python"></i>
+        </tab-link>
+        {{sys.python}}
+    </div>
+</div>

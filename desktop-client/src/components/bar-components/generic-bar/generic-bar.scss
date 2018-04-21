@@ -1,0 +1,15 @@
+@import "~styles/variables.scss";
+
+div.progress{
+        
+    background: $color-bar-bg;
+    margin-bottom: .33rem;
+
+    div.progress-bar {
+        background: $color-bar;
+        font-weight: bold;
+        font-size: 120%;
+        white-space: nowrap;
+    }
+
+ }

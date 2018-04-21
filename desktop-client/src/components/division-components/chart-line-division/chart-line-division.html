@@ -1,0 +1,43 @@
+<div class="container my-3">
+    <div class="row">
+        <div class="col-lg-3">
+            <server-online-select-legend (selected)="choosenSvr = $event"></server-online-select-legend>
+
+            <server-iface-select-legend [server]="choosenSvr" *ngIf="choosenSvr" (selected)="setIface($event)"></server-iface-select-legend>
+
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <i class="fas fa-align-justify"></i> Legend
+                    </h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="legend-color-5">
+                                <i class="fas fa-arrow-circle-down"></i>
+                            </span> Rx (Bytes Received)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="legend-color-6">
+                                <i class="fas fa-arrow-circle-up"></i>
+                            </span> Tx (Bytes Sent)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card bg-light">
+                <div class="text-center alert alert-secondary" role="alert" *ngIf="!choosenSvr">
+                    Please select server
+                </div>
+                <div class="text-center alert alert-secondary" role="alert" *ngIf="choosenSvr && !choosenIface">
+                    Please select Interface
+                </div>
+                <div class="text-center alert alert-secondary" role="alert" *ngIf="choosenSvr && choosenIface && (rxVals.length<3 || txVals.length<3)">
+                    Measuring, please wait ...
+                </div>
+                <div class="card-body ct-line-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>

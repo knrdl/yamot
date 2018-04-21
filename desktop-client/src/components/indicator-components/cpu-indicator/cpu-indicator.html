@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col">
+        <i class="fas fa-microchip"></i> CPU</div>
+    <div class="col text-right" *ngIf="arch">{{arch}}</div>
+</div>
+
+<div class="row" *ngIf="cpu.cores && cpu.cores.phy != cpu.cores.log">
+    <div class="col font-weight-bold">Cores: {{cpu.cores.phy}} physical, {{cpu.cores.log}} logical</div>
+</div>
+
+<div class="row" *ngIf="cpu.names.length>0">
+    <div class="col small">
+        <div *ngFor="let c of cpu.names">{{c[1]}}x {{c[0]}}</div>
+    </div>
+</div>
+
+<div class="row" *ngIf="cpu.usage.length>0">
+    <div class="col">
+        <ng-container *ngFor="let usage of cpu.usage; let i = index">
+            <div class="text-center" *ngIf="cpu.freq[i]; else noCpuFreq">
+                <span class="small">{{cpu.freq[i].min | sizify:'Hz':1000:'M'}} &le;</span>
+                {{cpu.freq[i].cur | sizify:'Hz':1000:'M'}}
+                <span class="small">&le; {{cpu.freq[i].max | sizify:'Hz':1000:'M'}}</span>
+            </div>
+            <ng-template #noCpuFreq>
+                <div class="my-2"></div>
+            </ng-template>
+            <cpu-bar *ngIf="usage" [user]="usage.user" [sys]="usage.sys"></cpu-bar>
+        </ng-container>
+    </div>
+</div>

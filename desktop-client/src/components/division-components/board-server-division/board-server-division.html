@@ -1,0 +1,43 @@
+<ng-container *ngIf="dataService.serverVisible[s.alias] !== false">
+    <serversettings-dialog [(show)]="showDialog" [server]="s"></serversettings-dialog>
+    <article [ngSwitch]="s.online">
+        <section class="text-center sticky-top font-weight-bold" (click)="showDialog = true">
+            <span class="float-left text-muted small hover-red p-1" (click)="dataService.serverVisible[s.alias] = false">
+                <i class="fas fa-times"></i>
+            </span>
+            <i class="fas fa-server"></i>
+            {{s.alias}}
+            <span class="float-right text-muted small hover-blue p-1">
+                <i class="fas fa-external-link-alt"></i>
+            </span>
+        </section>
+        <section *ngSwitchCase="'unknown'">
+            <div class="text-center">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+            </div>
+        </section>
+        <section *ngSwitchCase="'offline'" class="pb-0">
+            <h1>
+                <div class="badge badge-danger text-uppercase w-100">Offline</div>
+            </h1>
+        </section>
+        <section *ngSwitchCase="'online'" class="pb-0">
+            <load-indicator [load]="s.data.load" [mem]="s.data.mem" [cpucores]="s.data.cpu.cores.log || s.data.cpu.cores.phy" *appSectionCondition="[s.data?.load, s.data?.mem]"></load-indicator>
+            <time-indicator [time]="s.data.time" [updateDiff]="s.updateDiff" [powerSupply]="s.powerSupply" [averageCurrent]="s.averageCurrent"
+                *appSectionCondition="[s.data?.time]"></time-indicator>
+            <mobile-indicator [bat]="s.data.bat" [wifi]="s.data.net.wifistrength" *appSectionCondition="[s.data?.bat, s.data?.net?.wifistrength]"></mobile-indicator>
+            <temp-indicator [temp]="s.data.temp" *appSectionCondition="[s.data?.temp]"></temp-indicator>
+            <cpu-indicator [cpu]="s.data.cpu" [arch]="s.data.sys.uname.processor" *appSectionCondition="[s.data?.cpu]"></cpu-indicator>
+            <system-indicator [sys]="s.data.sys" *appSectionCondition="[s.data?.sys]"></system-indicator>
+            <service-indicator [services]="s.data.net.services" [hostname]="s.data.sys.uname.node" *appSectionCondition="[s.data?.net?.services]"></service-indicator>
+            <network-indicator [addr]="s.data.net.addr" [io]="s.data.net.io" [updateDiff]="s.updateDiff" *appSectionCondition="[s.data?.net?.addr, s.data?.net?.io]"></network-indicator>
+            <storage-indicator [store]="s.data.disk.store" *appSectionCondition="[s.data?.disk?.store]"></storage-indicator>
+            <disk-indicator [disk]="s.data.disk.io" *appSectionCondition="[s.data?.disk?.io]"></disk-indicator>
+            <user-indicator [users]="s.data.user" *appSectionCondition="[s.data?.user]"></user-indicator>
+        </section>
+        <section *ngIf="s.online !== 'unknown'">
+            <textarea class="form-control bg-dark text-white" rows="3" [(ngModel)]="s.description" (change)="saveDescription()" (keyup)="saveDescription()"
+                placeholder="Notes"></textarea>
+        </section>
+    </article>
+</ng-container>

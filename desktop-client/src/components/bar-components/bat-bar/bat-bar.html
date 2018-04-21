@@ -1,0 +1,6 @@
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngClass]="{'bg-success': percent>=100, 'bg-danger': percent<=15}"
+        [style.width]="percent+'%'">
+        <span class="ml-1">{{percent+'%'}}</span>
+    </div>
+</div>

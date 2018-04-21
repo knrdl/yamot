@@ -1,0 +1,22 @@
+@import "~styles/variables.scss";
+
+div.progress{
+
+    $bg: #666;
+        
+    background: $bg;
+
+    div.progress-bar {
+        white-space: nowrap;
+        background: desaturate($color-bar, 10%);
+    }
+
+    div.progress-bar:first-child {
+        border-right: 1px solid $bg;
+    }
+
+    div.no-width {
+        width: 0px;
+    }
+
+ }

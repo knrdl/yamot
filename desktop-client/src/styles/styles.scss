@@ -1,0 +1,16 @@
+//import order is important!
+@import "./bootstrap.scss";
+@import "./variables.scss";
+@import "./alert.scss";
+@import "./chartist.scss";
+@import "./scrollbars.scss";
+
+body {
+    background: repeating-linear-gradient(
+		to right,
+		$color-bg1,
+		$color-bg2 .6rem,
+		$color-bg1 .6rem,
+		$color-bg2 1.2rem
+	);
+}

@@ -1,0 +1,28 @@
+<storage-dialog [(show)]="showDialog" [store]="store"></storage-dialog>
+
+<div class="row">
+    <div class="col font-weight-bold">
+        <i class="fas fa-folder"></i> Storage
+    </div>
+    <div class="col text-right">
+        <button type="button" class="btn btn-primary btn-sm text-uppercase font-weight-bold" (click)="showDialog = true">
+            <i class="fas fa-external-link-square-alt"></i>
+        </button>
+    </div>
+</div>
+
+<ng-container *ngFor="let partition of store">
+    <ng-container *ngIf="partition.fstype !== 'cgroup' && partition.fstype !== 'tmpfs' && partition.usage && partition.usage.total>4096 && partition.usage.used>4096">
+        <div class="row">
+            <div class="col text-nowrap">
+                {{partition.mountpoint}}
+            </div>
+            <div class="col text-right">{{partition.fstype}}</div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <storage-bar [usage]="partition.usage"></storage-bar>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,41 @@
+<div class="row" *ngIf="time?.now">
+    <div class="col">
+        <i class="fas fa-clock"></i> Time
+    </div>
+    <div class="col-auto text-right">{{time.now*1000 | date:'short'}}</div>
+</div>
+<div class="row" *ngIf="time?.up && time?.up != time?.now">
+    <div class="col">
+        <i class="fas fa-stopwatch"></i> Uptime
+    </div>
+    <div class="col-auto text-right" [appAlert]="{warning: time.up > 60*60*24*100}">
+        {{time.up | timify}}
+    </div>
+</div>
+<div class="row" *ngIf="time?.boot>0">
+    <div class="col">
+        <i class="fas fa-calendar-alt"></i> Boot
+    </div>
+    <div class="col-auto text-right">
+        {{time.boot*1000 | date:'short'}}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <i class="fas fa-hourglass-start"></i> Update
+    </div>
+    <div class="col-auto text-right" *ngIf="updateDiff == 0; else updatedTimeAgo">now</div>
+    <ng-template #updatedTimeAgo>
+        <div class="col-auto text-right" [appAlert]="{warning: updateDiff > dataService.settings.updateInterval + 3 && dataService.updating, danger: updateDiff > dataService.settings.updateInterval + 8 && dataService.updating}">
+            {{updateDiff | timify}} ago
+        </div>
+    </ng-template>
+</div>
+<div class="row" *ngIf="powerSupply>0 && averageCurrent>0 && dataService.settings.kWhPrice>0 && time?.up>0">
+    <div class="col">
+        <i class="fas fa-donate"></i> Costs
+    </div>
+    <div class="col-auto text-right">
+        {{(powerSupply * averageCurrent * dataService.settings.kWhPrice * (time.up/3600)) / 1000 | number:'1.2-2'}} ct
+    </div>
+</div>

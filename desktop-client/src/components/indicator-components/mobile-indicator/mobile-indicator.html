@@ -1,0 +1,30 @@
+<ng-container *ngIf="bat">
+    <div class="row">
+        <div class="col">
+            <i class="fas fa-battery-three-quarters"></i> Battery
+        </div>
+        <div class="col text-right" [appAlert]="{warning: !bat.plug && bat.perc<20, danger: !bat.plug && bat.perc<15}">
+            <span *ngIf="bat.plug">
+                <i class="fas fa-plug"></i>
+            </span>
+            {{bat.plug ? (bat.perc==100 ? 'full' : 'charging') : 'discharging'}}
+        </div>
+    </div>
+    <bat-bar [percent]="bat.perc"></bat-bar>
+</ng-container>
+
+<ng-container *ngIf="connectedWifis().length>0">
+    <div class="row">
+        <div class="col">
+            <i class="fas fa-wifi"></i> Signal
+        </div>
+    </div>
+    <div class="row" *ngFor="let w of connectedWifis()">
+        <div class="col ml-4">
+            {{w[0]}}
+        </div>
+        <div class="col text-right" [appAlert]="{warning: w[1]>70, danger: w[1]>85}">
+            -{{w[1]}} dBm
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,30 @@
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        <h6 class="card-title">
+            <i class="fas fa-align-justify"></i> Legend
+        </h6>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let entry of legend.titles;let i = index">
+                <span class="legend-color-{{i}}" *ngIf="legend.get(entry); else hiddenDot">
+                    <i class="fas fa-circle"></i>
+                </span>
+                <ng-template #hiddenDot>
+                    <span class="text-secondary">
+                        <i class="fas fa-circle"></i>
+                    </span>
+                </ng-template>
+                {{entry}}
+                <button type="button" class="close hover-blue" (click)="update(entry)">
+                    <span *ngIf="legend.get(entry); else hiddenLegendEntry">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                    <ng-template #hiddenLegendEntry>
+                        <span>
+                            <i class="fas fa-eye-slash"></i>
+                        </span>
+                    </ng-template>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
